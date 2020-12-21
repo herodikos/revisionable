@@ -195,8 +195,8 @@ trait RevisionableTrait
                     'old_value' => Arr::get($this->originalData, $key),
                     'new_value' => $this->updatedData[$key],
                     'user_id' => $this->getSystemUserId(),
-                    'created_at' => new \DateTime(),
-                    'updated_at' => new \DateTime(),
+                    'created_at' => $this->freshTimestamp(),
+                    'updated_at' => $this->freshTimestamp(),
                 );
 
                 $revisions[] = array_merge($original, $this->getAdditionalFields());
@@ -239,8 +239,8 @@ trait RevisionableTrait
                 'old_value' => null,
                 'new_value' => $this->{self::CREATED_AT},
                 'user_id' => $this->getSystemUserId(),
-                'created_at' => new \DateTime(),
-                'updated_at' => new \DateTime(),
+                'created_at' => $this->freshTimestamp(),
+                'updated_at' => $this->freshTimestamp(),
             );
 
             //Determine if there are any additional fields we'd like to add to our model contained in the config file, and
@@ -270,8 +270,8 @@ trait RevisionableTrait
                 'old_value' => null,
                 'new_value' => $this->{$this->getDeletedAtColumn()},
                 'user_id' => $this->getSystemUserId(),
-                'created_at' => new \DateTime(),
-                'updated_at' => new \DateTime(),
+                'created_at' => $this->freshTimestamp(),
+                'updated_at' => $this->freshTimestamp(),
             );
 
             //Since there is only one revision because it's deleted, let's just merge into revision[0]
@@ -304,8 +304,8 @@ trait RevisionableTrait
                 'old_value' => $this->{self::CREATED_AT},
                 'new_value' => null,
                 'user_id' => $this->getSystemUserId(),
-                'created_at' => new \DateTime(),
-                'updated_at' => new \DateTime(),
+                'created_at' => $this->freshTimestamp(),
+                'updated_at' => $this->freshTimestamp(),
             );
 
             $revision = Revisionable::newModel();

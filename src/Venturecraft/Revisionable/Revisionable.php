@@ -158,8 +158,8 @@ class Revisionable extends Eloquent
                     'old_value'             => Arr::get($this->originalData, $key),
                     'new_value'             => $this->updatedData[$key],
                     'user_id'               => $this->getSystemUserId(),
-                    'created_at'            => new \DateTime(),
-                    'updated_at'            => new \DateTime(),
+                    'created_at'            => $this->freshTimestamp(),
+                    'updated_at'            => $this->freshTimestamp(),
                 );
             }
 
@@ -193,8 +193,8 @@ class Revisionable extends Eloquent
                 'old_value' => null,
                 'new_value' => $this->{self::CREATED_AT},
                 'user_id' => $this->getSystemUserId(),
-                'created_at' => new \DateTime(),
-                'updated_at' => new \DateTime(),
+                'created_at' => $this->freshTimestamp(),
+                'updated_at' => $this->freshTimestamp(),
             );
 
             $revision = static::newModel();
@@ -217,8 +217,8 @@ class Revisionable extends Eloquent
                 'old_value' => null,
                 'new_value' => $this->{$this->getDeletedAtColumn()},
                 'user_id' => $this->getSystemUserId(),
-                'created_at' => new \DateTime(),
-                'updated_at' => new \DateTime(),
+                'created_at' => $this->freshTimestamp(),
+                'updated_at' => $this->freshTimestamp(),
             );
             $revision = static::newModel();
             \DB::table($revision->getTable())->insert($revisions);
@@ -246,8 +246,8 @@ class Revisionable extends Eloquent
                 'old_value' => $this->{self::CREATED_AT},
                 'new_value' => null,
                 'user_id' => $this->getSystemUserId(),
-                'created_at' => new \DateTime(),
-                'updated_at' => new \DateTime(),
+                'created_at' => $this->freshTimestamp(),
+                'updated_at' => $this->freshTimestamp(),
             );
 
             $revision = Revisionable::newModel();
